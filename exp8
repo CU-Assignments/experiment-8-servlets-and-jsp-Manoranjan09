@@ -1,0 +1,60 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    
+    private static final String VALID_USERNAME = "admin";
+    private static final String VALID_PASSWORD = "password123";
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+      
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+    
+        if (VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password)) {
+         
+            out.println("<html>");
+            out.println("<head><title>Welcome</title>");
+            out.println("<style>");
+            out.println("body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }");
+            out.println(".welcome { color: #2E8B57; font-size: 24px; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div class='welcome'>");
+            out.println("<h2>Welcome, " + username + "!</h2>");
+            out.println("<p>You have successfully logged in.</p>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        } else {
+      
+            out.println("<html>");
+            out.println("<head><title>Login Failed</title>");
+            out.println("<style>");
+            out.println("body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }");
+            out.println(".error { color: #FF0000; font-size: 18px; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div class='error'>");
+            out.println("<h2>Login Failed</h2>");
+            out.println("<p>Invalid username or password. Please try again.</p>");
+            out.println("<a href='login.html'>Back to Login</a>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+}
